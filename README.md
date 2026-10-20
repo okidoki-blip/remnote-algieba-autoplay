@@ -1,11 +1,25 @@
-# RemNote Algieba Autoplay
+# Flashcard Audio Autoplay
 
-Plays existing question audio when a mapped cloze card appears and answer audio when it is revealed. Supports native card clusters using the active widget card ID. Hides embedded audio bars only during flashcard review.
+Listen to existing question and answer recordings hands-free while reviewing configured flashcards. Question audio starts when a card appears; answer audio starts when the answer is revealed. Playback follows the active cloze card within native Card Clusters and stops the previous recording when the card or side changes.
 
-This repository contains plugin code only. No recordings, card text, real card IDs, audio URLs, credentials, or personal configuration are included.
+Embedded audio players are hidden during review to keep the card readable. Review-only styling also collapses audio-only blank space. Audio controls remain available in the note editor, and the review widget provides replay or a play control if automatic playback is blocked.
 
-The checked-in trial-map.json is deliberately empty. To build a personal package, configure that file locally with card IDs mapped to {remId, question, answer}, set a read-only DescendantsOfId scope for the target figure in manifest.json, and set repoUrl to this repository. Keep personal configuration out of commits. Install dependencies and run node build.mjs, then ZIP the contents of dist for RemNote's Upload Plugin tool.
+## Current release and review scope
 
-An installed package includes its own code and needs no localhost helper or TTS API key. Playback uses existing RemNote audio attachments; network access may be needed to stream them. It never generates audio or edits notes or reviews.
+This is an unlisted, desktop-only personal pilot, configured for three sample cloze cards in one figure. Other cards remain silent. The general title describes the playback function; this release does not automatically support every card or provide a recording configuration interface. The stable plugin ID retains the original trial name to preserve the existing submission.
 
-Hosted development experiment: RemNote desktop rejected the GitHub Pages URL because its development loader requires http://localhost. Pages hosting has been disabled. The root TypeScript and build files describe the submitted 0.1.8 package. Extra compiled JavaScript/HTML and setup files are remnants of the unsuccessful hosted trial and are not the submitted package. Desktop installation remains pending RemNote team approval.
+## Permissions and data handling
+
+The submitted personal package requests read-only access to descendants of the configured figure to identify the active card. It does not write notes, create cards, change scheduling, or modify review history. No native-system access is requested.
+
+The plugin plays previously attached recordings from RemNote-hosted media URLs. It does not generate speech, call Google or another AI service, require an API key, or send card text to a speech provider. Internet access may be required to stream recordings. Ordinary media requests go to the existing media host; the plugin adds no analytics or external tracking.
+
+## Source and personal configuration
+
+The public repository contains source code and an empty trial-map.json. Card text, personal card identifiers, recording URLs, recordings, and credentials are excluded. The private submitted package contains the three-card playback mapping. To reproduce a personal build, configure that mapping locally and the corresponding read-only descendant scope, install dependencies, run node build.mjs, and zip the dist contents. Do not commit personal mappings.
+
+The uploaded package includes its playback code and requires no local helper once approved and installed. The development installation uses a localhost helper while approval is pending. A hosted development experiment was rejected by the desktop localhost loader; hosting is disabled. Extra compiled/setup files from that experiment are not part of the submitted package.
+
+## Reviewer verification
+
+Inspect the index widget, playback widget, controller, review CSS, and manifest. With the configured sample cards, verify question playback on entry, answer playback on reveal, stopped audio on card transitions, silent unmapped cards, replay availability, and preserved editor audio controls. The configured personal pilot has been tested on all six card sides. Approval remains at RemNote's discretion.
