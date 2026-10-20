@@ -1,12 +1,12 @@
 {
   "manifestVersion": 1,
-  "id": "uworld_algieba_autoplay_hosted_trial",
-  "name": "Algieba Autoplay Hosted Trial",
+  "id": "uworld_algieba_autoplay_trial",
+  "name": "UWorld Algieba Autoplay Trial",
   "author": "Fares Sweidan",
   "version": {
     "major": 0,
-    "minor": 2,
-    "patch": 0
+    "minor": 1,
+    "patch": 8
   },
   "enableOnMobile": false,
   "description": "Automatically plays existing question and answer recordings for exactly three UWorld trial cards. Does not edit notes or reviews.",

@@ -1,9 +1,11 @@
 # RemNote Algieba Autoplay
 
-Hosted three-card trial with question audio on card entry, answer audio on reveal, hidden embedded audio bars and compact cloze review spacing.
+Plays existing question audio when a mapped cloze card appears and answer audio when it is revealed. Supports native card clusters using the active widget card ID. Hides embedded audio bars only during flashcard review.
 
-This repository and its compiled JavaScript contain code only: no card text, real card IDs, audio URLs, recordings, API keys, or personal configuration. The plugin requests no note-reading or note-editing permissions. It matches the active FlashcardUnder widget card ID against three configured cards.
+This repository contains plugin code only. No recordings, card text, real card IDs, audio URLs, credentials, or personal configuration are included.
 
-The setup popup imports exactly three card mappings into RemNote synced plugin storage. Configuration is never sent to GitHub. Shape: an object whose keys are card IDs, with each value containing remId, question and answer HTTPS URLs. Use the Configure Algieba trial recordings command to replace configuration. Keep private configuration out of commits.
+The checked-in trial-map.json is deliberately empty. To build a personal package, configure that file locally with card IDs mapped to {remId, question, answer}, set a read-only DescendantsOfId scope for the target figure in manifest.json, and set repoUrl to this repository. Keep personal configuration out of commits. Install dependencies and run node build.mjs, then ZIP the contents of dist for RemNote's Upload Plugin tool.
 
-Install dependencies and run node build.mjs. The root compiled files are served through GitHub Pages for a self-hosted development trial while the separately submitted package awaits RemNote approval. Loading from a hosted development address depends on RemNote's supported development interface. Audio streams from existing RemNote attachments; internet access is required. No TTS generation requests are made.
+An installed package includes its own code and needs no localhost helper or TTS API key. Playback uses existing RemNote audio attachments; network access may be needed to stream them. It never generates audio or edits notes or reviews.
+
+Hosted development experiment: RemNote desktop rejected the GitHub Pages URL because its development loader requires http://localhost. Pages hosting has been disabled. The root TypeScript and build files describe the submitted 0.1.8 package. Extra compiled JavaScript/HTML and setup files are remnants of the unsuccessful hosted trial and are not the submitted package. Desktop installation remains pending RemNote team approval.
