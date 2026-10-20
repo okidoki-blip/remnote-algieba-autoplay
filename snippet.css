@@ -1,0 +1,17 @@
+/* Hide embedded players during review; keep them visible in the editor. */
+.rn-queue-container audio,
+.rn-queue-container [class*="audio-player" i] {
+  display: none !important;
+}
+
+/* Native clusters render audio-only children in their own containers.
+   Collapse those containers, but preserve cloze-bearing rows and ancestors. */
+.rn-queue-container:has([class*="cloze" i]) :is(div,span):has(audio):not(:has([class*="cloze" i])) {
+  display: none !important;
+}
+
+/* Collapse the text newline before an inline recording after hiding it.
+   Natural line wrapping remains, with no empty line reserved for the player. */
+.rn-queue-container div:has(audio):has([class*="cloze" i]):not(:has(img)) span {
+  white-space: normal !important;
+}
