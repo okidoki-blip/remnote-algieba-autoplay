@@ -9,7 +9,7 @@
     "patch": 9
   },
   "enableOnMobile": false,
-  "description": "Automatically plays existing question audio when a configured flashcard appears and answer audio on reveal. Supports cloze card clusters, with compact review layout and hidden embedded audio controls. Limited three-card trial; no audio generation or note edits.",
+  "description": "Plays existing question audio on card entry and answer audio on reveal, including cloze clusters. Hides review audio bars. Three-card desktop pilot; read-only, with no speech generation.",
   "requestNative": false,
   "requiredScopes": [],
   "unlisted": true,
