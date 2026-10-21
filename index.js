@@ -35,7 +35,7 @@ __p+='`),_}),d+=`';
 .rn-queue-container div:has(audio):has([class*="cloze" i]):not(:has(img)) span {
   white-space: normal !important;
 }\r
-`;(0,sa.declareIndexPlugin)(async e=>{await e.app.registerCSS("compact-review-audio",M0),await e.app.registerWidget("playback",sa.WidgetLocation.FlashcardUnder,{dimensions:{height:48,width:"100%"}}),await e.app.registerCommand({id:"configure-recordings",name:"Configure Algieba trial recordings",quickCode:"algieba",action:async()=>{await e.widget.openPopup("setup")}}),await e.storage.getSynced("trial-recordings")||await e.widget.openPopup("setup")},async()=>{});})();
+`;(0,sa.declareIndexPlugin)(async e=>{await e.app.registerCSS("compact-review-audio",M0),await e.app.registerWidget("playback",sa.WidgetLocation.FlashcardUnder,{dimensions:{height:48,width:"100%"}}),await e.app.registerCommand({id:"configure-recordings",name:"Configure flashcard audio",quickCode:"audio",action:async()=>{await e.widget.openPopup("setup")}}),await e.storage.getSynced("audio-recordings-v1")||await e.widget.openPopup("setup")},async()=>{});})();
 /*! Bundled license information:
 
 react/cjs/react.production.min.js:

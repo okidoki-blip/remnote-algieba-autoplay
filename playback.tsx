@@ -1,24 +1,25 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {AppEvents, renderWidget, usePlugin, WidgetLocation} from '@remnote/plugin-sdk';
 import {PlaybackController} from './controller.mjs';
-import mapping from './trial-map.json';
 
 function Playback() {
   const plugin = usePlugin();
   const [status, setStatus] = useState('');
   const controller = useRef<PlaybackController>();
   useEffect(() => {
-    const player = new PlaybackController(mapping, (url: string) => new Audio(url), setStatus);
+    const player = new PlaybackController({}, (url: string) => new Audio(url), setStatus);
     controller.current = player;
     let disposed = false, running = false;
     const refresh = async () => {
       if (running || disposed) return;
       running = true;
       try {
-        // Cluster widgets update cardId, but their remId and the general queue card
-        // can still refer to the cluster's entry card. Resolve the widget card itself.
+        player.mapping = await plugin.storage.getSynced('audio-recordings-v1') || {};
+        // Match the SDK's active card ID to private, previously verified configuration.
+        // No note-reading permission or public card IDs are needed for this trial.
         const widget = await plugin.widget.getWidgetContext<WidgetLocation.FlashcardUnder>();
-        const card = widget?.cardId ? await plugin.card.findOne(widget.cardId) : undefined;
+        const record = player.mapping[widget?.cardId];
+        const card = record ? {_id:widget.cardId,remId:record.remId} : undefined;
         const latest = await plugin.widget.getWidgetContext<WidgetLocation.FlashcardUnder>();
         if (widget?.cardId !== latest?.cardId || widget?.revealed !== latest?.revealed) return;
         const context = {cardId: widget?.cardId, remId: card?.remId, revealed: widget?.revealed};

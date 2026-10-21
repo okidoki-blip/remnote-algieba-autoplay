@@ -1,25 +1,27 @@
 # Flashcard Audio Autoplay
 
-Listen to existing question and answer recordings hands-free while reviewing configured flashcards. Question audio starts when a card appears; answer audio starts when the answer is revealed. Playback follows the active cloze card within native Card Clusters and stops the previous recording when the card or side changes.
+Plays an existing question recording when a configured flashcard appears, and its answer recording when the answer is revealed. Playback follows the active card in Card Clusters and stops the previous recording when the card or side changes. A replay button is available if autoplay is blocked.
 
-Embedded audio players are hidden during review to keep the card readable. Review-only styling also collapses audio-only blank space. Audio controls remain available in the note editor, and the review widget provides replay or a play control if automatic playback is blocked.
+## Configuration
 
-## Current release and review scope
+The downloadable package contains no personal card mapping, card identifiers, recording URLs, recordings, or credentials. It starts with no configured cards and remains silent until you import your own configuration.
 
-This is an unlisted, desktop-only personal pilot, configured for three sample cloze cards in one figure. Other cards remain silent. The general title describes the playback function; this release does not automatically support every card or provide a recording configuration interface. The stable plugin ID retains the original trial name to preserve the existing submission.
+Open **Configure flashcard audio** from RemNote's command menu. Import a JSON object keyed by card ID; each record must contain `remId`, `question`, and `answer`. Both recordings must use HTTPS URLs. Save recordings, then reopen your review session. Saving replaces the previous configuration; saving `{}` clears it.
 
-## Permissions and data handling
+Configuration is saved through RemNote's synced plugin storage, separately from the public package and GitHub repository. It is handled by RemNote and may sync with your account; it is not described as a secret vault or as device-only storage. Only use media links you are authorized to play. Anyone who obtains a shareable recording link may be able to access that recording according to the media host's access controls.
 
-The submitted personal package requests read-only access to descendants of the configured figure to identify the active card. It does not write notes, create cards, change scheduling, or modify review history. No native-system access is requested.
+## Permissions and network behavior
 
-The plugin plays previously attached recordings from RemNote-hosted media URLs. It does not generate speech, call Google or another AI service, require an API key, or send card text to a speech provider. Internet access may be required to stream recordings. Ordinary media requests go to the existing media host; the plugin adds no analytics or external tracking.
+No note-reading scopes, note-writing scopes, or native-system access are requested. The plugin uses the active card ID and revealed state provided to its review widget. It does not edit notes, cards, schedules, or review history. It requests only the recording URLs you configure when playing media. There is no speech generation, Google API call, API key, analytics, or tracking service. An internet connection may be required to stream your recordings.
 
-## Source and personal configuration
+Review-only styling hides embedded audio controls and collapses audio-only spacing. Editor controls remain visible. This styling applies to reviews beyond configured cards. Desktop is the supported platform.
 
-The public repository contains source code and an empty trial-map.json. Card text, personal card identifiers, recording URLs, recordings, and credentials are excluded. The private submitted package contains the three-card playback mapping. To reproduce a personal build, configure that mapping locally and the corresponding read-only descendant scope, install dependencies, run node build.mjs, and zip the dist contents. Do not commit personal mappings.
+## Reviewer checks and correction
 
-The uploaded package includes its playback code and requires no local helper once approved and installed. The development installation uses a localhost helper while approval is pending. A hosted development experiment was rejected by the desktop localhost loader; hosting is disabled. Extra compiled/setup files from that experiment are not part of the submitted package.
+Version 0.1.10 replaces the earlier personal pilot package. The earlier upload included a personal three-card mapping and six media URLs; its description incorrectly implied that the submitted mapping was private. Unlisted packages can still be publicly downloaded. This replacement removes all personal mappings and media URLs from source and compiled assets and provides an explicit user import flow instead. The developer should request removal of earlier downloadable artifacts where possible. Removing this package's links does not revoke links already obtained from earlier versions.
 
-## Reviewer verification
+Reviewers can inspect the manifest (empty required scopes), configure their own HTTPS recordings, and verify silence before configuration, question playback on entry, answer playback on reveal, stop on transition, and replay when blocked. No real user recordings are included for testing.
 
-Inspect the index widget, playback widget, controller, review CSS, and manifest. With the configured sample cards, verify question playback on entry, answer playback on reveal, stopped audio on card transitions, silent unmapped cards, replay availability, and preserved editor audio controls. The configured personal pilot has been tested on all six card sides. Approval remains at RemNote's discretion.
+## Build
+
+Source uses React, esbuild, and the public RemNote plugin SDK. Run `node build.mjs` after installing dependencies. Package only the `dist` contents. Do not add personal configuration to source, build inputs, screenshots, or published archives. The approved package runs within RemNote and does not require a localhost helper.

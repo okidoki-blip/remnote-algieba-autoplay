@@ -6,10 +6,10 @@
   "version": {
     "major": 0,
     "minor": 1,
-    "patch": 9
+    "patch": 10
   },
   "enableOnMobile": false,
-  "description": "Plays existing question audio on card entry and answer audio on reveal, including cloze clusters. Hides review audio bars. Three-card desktop pilot; read-only, with no speech generation.",
+  "description": "Automatically plays configured question recordings on card entry and answer recordings on reveal. Import your own recording configuration into RemNote plugin storage.",
   "requestNative": false,
   "requiredScopes": [],
   "unlisted": true,
